@@ -1,0 +1,262 @@
+:root {
+  --background: #000;
+  --primary: #a85067;
+  --secondary: #3e2845;
+  --shade: #2c2637;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--background);
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.comming-soon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  position: relative;
+  height: 100vh;
+}
+
+.circle {
+  width: 250px;
+  height: 250px;
+  background: var(--background);
+  border-radius: 100%;
+  animation: shadow 2s linear infinite alternate;
+  position: relative;
+  overflow: hidden;
+}
+
+.shuttle {
+  position: absolute;
+  font-size: 24px;
+  color: var(--primary);
+  animation: orbit 4s linear infinite;
+}
+
+.shuttle i {
+  transform: rotate(45deg);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.form-group {
+  width: 450px;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+}
+
+.text {
+  color: #efefef;
+  letter-spacing: 15px;
+  font-size: 20px;
+}
+
+.location {
+  color: var(--primary);
+  font-size: 16px;
+  margin-top: 10px;
+  letter-spacing: 2px;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.form-group label {
+  color: #efefef;
+  font-size: 15px;
+  margin-top: 40px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.input-group {
+  width: 100%;
+  display: flex;
+}
+
+.input-group input {
+  flex: 1;
+  border-radius: 15px 0 0 15px;
+  background: transparent;
+  border: 1px solid var(--secondary);
+  padding: 10px 15px;
+  color: #efefef;
+}
+
+.input-group input:focus {
+  box-shadow: none;
+  border-color: var(--secondary);
+  background: #efefef;
+  color: #000;
+  outline: none;
+}
+
+.input-group-text {
+  border-radius: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.input-group-text button {
+  border: 1px solid var(--secondary);
+  border-radius: 0 15px 15px 0;
+  background: var(--secondary);
+  padding: 10px 20px;
+  color: #fff;
+  font-weight: normal;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+.input-group-text button:hover {
+  background: #332037;
+}
+
+.input-group-text button:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.social-link {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary);
+  text-decoration: none;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  padding: 20px 10px;
+  background: rgba(168, 80, 103, 0.1);
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: rgba(168, 80, 103, 0.2);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.social-link i {
+  font-size: 24px;
+  transform: rotate(90deg);
+}
+
+@keyframes shadow {
+  0%   { box-shadow: 0 -3px 2px var(--primary); }
+  25%  { box-shadow: 0 -6px 4px var(--primary); }
+  50%  { box-shadow: 0 -9px 6px var(--primary); }
+  75%  { box-shadow: 0 -12px 8px var(--primary); }
+  100% { box-shadow: 0 -15px 10px var(--primary); }
+}
+
+@keyframes orbit {
+  from {
+    transform: rotate(0deg) translateX(100px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(100px) rotate(-360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: rotate(45deg) scale(1);
+  }
+  50% {
+    transform: rotate(45deg) scale(1.2);
+  }
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary);
+  }
+  to {
+    text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+  }
+}
+
+@media (max-width: 500px) {
+  .form-group {
+    width: 90%;
+  }
+  
+  .text {
+    letter-spacing: 10px;
+    font-size: 16px;
+  }
+  
+  .circle {
+    width: 200px;
+    height: 200px;
+  }
+
+  .social-link {
+    right: 10px;
+    padding: 15px 5px;
+    font-size: 12px;
+  }
+
+  .social-link i {
+    font-size: 20px;
+  }
+
+  .location {
+    font-size: 14px;
+  }
+}
+
+.message {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.message.success {
+  background: rgba(0, 255, 0, 0.1);
+  color: #4caf50;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.message.error {
+  background: rgba(255, 0, 0, 0.1);
+  color: #f44336;
+  border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+.input-group-text button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} 

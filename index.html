@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SettleSquare - Coming Soon</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="comming-soon">
+                    <div class="circle">
+                        <div class="shuttle">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <p class="text">COMING SOON</p>
+                        <p class="location">SettleSquare in Lucknow</p>
+                        <label>Get latest updates about new release</label>
+                        <form id="notifyForm" onsubmit="return submitForm(event)">
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="Email Address" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">
+                                        <button type="submit">
+                                            <span class="button-text">Notify Me</span>
+                                            <span class="loading-spinner" style="display: none;">
+                                                <i class="fas fa-spinner fa-spin"></i>
+                                            </span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="message" class="message"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="https://instagram.com/settlesquare" target="_blank" class="social-link">
+        <i class="fab fa-instagram"></i>
+        Follow us
+    </a>
+
+    <script>
+        async function submitForm(event) {
+            event.preventDefault();
+            
+            const form = document.getElementById('notifyForm');
+            const email = form.querySelector('input[type="email"]').value;
+            const button = form.querySelector('button');
+            const buttonText = button.querySelector('.button-text');
+            const loadingSpinner = button.querySelector('.loading-spinner');
+            const messageDiv = document.getElementById('message');
+            
+            // Show loading state
+            buttonText.style.display = 'none';
+            loadingSpinner.style.display = 'inline-block';
+            button.disabled = true;
+            
+            try {
+                const response = await fetch('submit.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email })
+                });
+                
+                const data = await response.json();
+                
+                messageDiv.textContent = data.message;
+                messageDiv.className = 'message ' + (data.success ? 'success' : 'error');
+                
+                if (data.success) {
+                    form.reset();
+                }
+            } catch (error) {
+                messageDiv.textContent = 'An error occurred. Please try again later.';
+                messageDiv.className = 'message error';
+            } finally {
+                // Restore button state
+                buttonText.style.display = 'inline-block';
+                loadingSpinner.style.display = 'none';
+                button.disabled = false;
+            }
+            
+            return false;
+        }
+    </script>
+</body>
+</html> 
